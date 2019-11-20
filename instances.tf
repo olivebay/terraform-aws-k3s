@@ -2,7 +2,7 @@ resource "aws_instance" "master" {
   ami             = var.ami[var.aws_region]
   instance_type   = var.instance_type
   key_name        = aws_key_pair.mykeypair.key_name
-  count           = var.masters
+  count           = var.count_masters
   security_groups = [aws_security_group.servers.id]
   subnet_id       = element(list(aws_subnet.main-public-1.id, aws_subnet.main-public-2.id, aws_subnet.main-public-3.id),count.index)
   tags = {
@@ -40,7 +40,7 @@ resource "aws_instance" "worker" {
   ami             = var.ami[var.aws_region]
   instance_type   = var.instance_type
   key_name        = aws_key_pair.mykeypair.key_name
-  count           = var.workers
+  count           = var.count_workers
   security_groups = [aws_security_group.servers.id]
   subnet_id       = element(list(aws_subnet.main-public-1.id, aws_subnet.main-public-2.id, aws_subnet.main-public-3.id),count.index)
   tags = {
